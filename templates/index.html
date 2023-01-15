@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<!--New request-->
+<div class="container justify-content-center align-items-center" style="margin-bottom: 50px;">
+    <div class="row justify-content-center align-items-center">
+        <!--Illustrative imger-->
+        <div class="col-3 d-none d-md-block">
+            <img  class="img-fluid" src="../static/img/photo_main_casque_fonds_noir_500x800.png" alt="Artistic pictures with books surrounded by headphones">
+        </div>
+        <div class="col-md-6 col-12">
+            <p id="title">Audio Guide Pirate</p><br>
+            <p id="text">Are you travelling ? Visiting a Museum or a City ?<br>
+                Try our tool to get the free audio description of the place you are visiting:</p>
+            <form action="/" method="post" class="form-request">       
+                <p class="form_title">New Request</p>   
+                <!--First input lang-->
+                <input tabindex="1" class="lang_js" type="text" placeholder="Select a language" name="lang" list="lang" autocomplete="off" required autofocus><br>
+                    <datalist id="lang">
+                            <option value="FR">
+                            <option value="EN">
+                    </datalist>
+                <!--Second input plate number-->
+                <input tabindex="2" class="input_js" type="text" placeholder="Search for an item" name="input" autocomplete="off" required><br>
+                <!--Button-->
+                <button tabindex="3" type="submit" id="button">Send Request</button>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                            <p>{{ message }}<p>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+                <div id="loader"></div>
+                <div id="text_loader">Please wait while loading...This might take up to 30 sec.</div> 
+            </form>   
+            <p id="text_bottom">Not sure how to use this tool ? Visit our <a href="/faq">FAQ</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script>
+
+//Function to manage button on the form - THIS FUNCTION IS IN JQUERY 
+$(document).ready(function() {
+  // Select the button and input fields
+  var button = $('#button');
+  var input1 = $('.input_js');
+  var input2 = $('.lang_js');
+
+  // Disable the button by default
+  button.prop('disabled', true);
+
+  // When either input field changes, check if both fields have a value
+  input1.on('input', function() {
+    checkInputs();
+  });
+  input2.on('input', function() {
+    checkInputs();
+  });
+
+  function checkInputs() {
+    // If both input fields have a value, enable the button
+    if (input1.val() && input2.val()) {
+      button.prop('disabled', false);
+      button.css("background-color", "#28AF06");
+    } else {
+      // Otherwise, disable the button
+      button.prop('disabled', true);
+      button.css("background-color", "white");
+    }
+  }
+});
+
+//Function for the loader
+$(document).ready(function() {
+  // Détection de l'envoi d'une requête POST
+  $(document).on('submit', 'form', function(event) {
+    if ($(this).attr('method') === 'post') {
+      // Affichage des éléments div
+      $('#loader').show();
+      $('#text_loader').show();
+    } else if (method ==='get') {
+      //Masque les éléments div pour une requête GET
+      $('#loader').hide();
+      $('#text_loader').hide();
+    }
+  });
+});
+
+</script>
+
+{% endblock %}

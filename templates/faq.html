@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block body%}
+
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center m-5">
+        <div class="col-md-6 col-12">
+                <div class="faq-one ">
+                    <!-- faq question -->
+                    <p class="faq-page google_font">What is Audio Guide Pirate?</p>
+                    <!-- faq answer -->
+                    <div class="faq-body google_font">
+                        <p>Audio Guide Pirate is a proof of concept, it allows users to obtain an .mp3 file of the main description of any
+                            Wikipedia pages, as long as this latter exists. 
+                        </p>
+                    </div>
+                </div>
+                <hr class="hr-line">
+                <div class="faq-two">
+                    <!-- faq question -->
+                    <p class="faq-page google_font">How to use it?</p>
+                    <!-- faq answer -->
+                    <div class="faq-body google_font">
+                        <p>This tool uses the API from Wikipedia, in other words if you are travelling in a city or if you want to obtain more information about a painting, just follow the below steps:<br><br>
+                        1. Select the Wikipedia page of the city you are visiting, or anything else you would like to obtain (Go on Wikipedia : <a style="font-size: 14px;" href="https://www.wikipedia.org">here</a>);<br><br>
+                        2. Copy the "title" of the article you chose, for instance from Mona Lisa Wikipedia's page, the title is : <i>"Mona Lisa";</i><br><br>
+                        3. Paste the title into the form on <a href="/">Home page</a> and select the required language (must be similar from the Wikipedia page);<br><br>
+                        4. Press "Send Request"<br><br>
+                        5. If all the values are correct you shall be redirected to the .MP3 files automatically (Please note the process might take few seconds to execute);</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+    var faq = document.getElementsByClassName("faq-page");
+    var i;
+    for (i = 0; i < faq.length; i++) {
+        faq[i].addEventListener("click", function () {
+            /* Toggle between adding and removing the "active" class,
+            to highlight the button that controls the panel */
+            this.classList.toggle("active_faq");
+            /* Toggle between hiding and showing the active panel */
+            var body = this.nextElementSibling;
+            if (body.style.display === "block") {
+                body.style.display = "none";
+            } else {
+                body.style.display = "block";
+            }
+        });
+    }
+</script>
+
+{% endblock javascript %}
